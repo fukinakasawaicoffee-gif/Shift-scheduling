@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import Base, engine
-from app.api import auth, departments, employees, schedules
+from app.api import auth, departments, employees, schedules, shift_patterns, shift_requirements, leave_requests
 
 # データベーステーブル作成
 Base.metadata.create_all(bind=engine)
@@ -27,7 +27,10 @@ app.add_middleware(
 app.include_router(auth.router, prefix=f"{settings.API_V1_STR}/auth", tags=["認証"])
 app.include_router(departments.router, prefix=f"{settings.API_V1_STR}/departments", tags=["部署"])
 app.include_router(employees.router, prefix=f"{settings.API_V1_STR}/employees", tags=["従業員"])
+app.include_router(shift_patterns.router, prefix=f"{settings.API_V1_STR}/shift-patterns", tags=["シフトパターン"])
+app.include_router(shift_requirements.router, prefix=f"{settings.API_V1_STR}/shift-requirements", tags=["シフト必要人数"])
 app.include_router(schedules.router, prefix=f"{settings.API_V1_STR}/schedules", tags=["スケジュール"])
+app.include_router(leave_requests.router, prefix=f"{settings.API_V1_STR}/leave-requests", tags=["休暇申請"])
 
 
 @app.get("/")

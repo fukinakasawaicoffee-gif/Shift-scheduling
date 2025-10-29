@@ -71,6 +71,29 @@ export const employeeAPI = {
   delete: (id: number) => api.delete(`/employees/${id}`),
 };
 
+// シフトパターンAPI
+export const shiftPatternAPI = {
+  getAll: (departmentId?: number) =>
+    api.get('/shift-patterns/', { params: { department_id: departmentId } }),
+  getById: (id: number) => api.get(`/shift-patterns/${id}`),
+  create: (data: any) => api.post('/shift-patterns/', data),
+  update: (id: number, data: any) => api.put(`/shift-patterns/${id}`, data),
+  delete: (id: number) => api.delete(`/shift-patterns/${id}`),
+};
+
+// シフト必要人数API
+export const shiftRequirementAPI = {
+  getAll: (params?: {
+    department_id?: number;
+    start_date?: string;
+    end_date?: string;
+  }) => api.get('/shift-requirements/', { params }),
+  getById: (id: number) => api.get(`/shift-requirements/${id}`),
+  create: (data: any) => api.post('/shift-requirements/', data),
+  update: (id: number, data: any) => api.put(`/shift-requirements/${id}`, data),
+  delete: (id: number) => api.delete(`/shift-requirements/${id}`),
+};
+
 // スケジュールAPI
 export const scheduleAPI = {
   getAll: (params?: {
@@ -84,4 +107,16 @@ export const scheduleAPI = {
   update: (id: number, data: any) => api.put(`/schedules/${id}`, data),
   delete: (id: number) => api.delete(`/schedules/${id}`),
   generate: (data: any) => api.post('/schedules/generate', data),
+};
+
+// 休暇申請API
+export const leaveRequestAPI = {
+  getAll: (params?: { employee_id?: number; status?: string }) =>
+    api.get('/leave-requests/', { params }),
+  getById: (id: number) => api.get(`/leave-requests/${id}`),
+  create: (data: any) => api.post('/leave-requests/', data),
+  update: (id: number, data: any) => api.put(`/leave-requests/${id}`, data),
+  delete: (id: number) => api.delete(`/leave-requests/${id}`),
+  approve: (id: number) => api.post(`/leave-requests/${id}/approve`),
+  reject: (id: number) => api.post(`/leave-requests/${id}/reject`),
 };
